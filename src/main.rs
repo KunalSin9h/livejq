@@ -9,6 +9,10 @@ fn main() {
         let mut token = String::new();
         stdin().read_line(&mut token).expect("livejq: failed to read token from input");
 
+        if token == "" {
+            continue;
+        }
+
         if let Ok(parsed_json) = serde_json::from_str::<Value>(&token) {
             // Token is a valid JSON
             
