@@ -1,15 +1,10 @@
 use serde_json::Value;
 
-/*
- * enum Value {
-        Null,
-        Bool(bool),
-        Number(Number),
-        String(String),
-        Array(Vec<Value>),
-        Object(Map<String, Value>),
-    }
-*/
+const RED: &str = "\x1b[1;31m";
+const GREEN: &str = "\x1b[0;32m";
+const BLUE: &str = "\x1b[1;34m";
+const BOLD_WHITE: &str = "\x1b[1m";
+const NC: &str = "\x1b[0m";
 
 pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
 
@@ -26,15 +21,15 @@ pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
         Value::Null => return,
 
         Value::Bool(v) => {
-            print!("{}{}", v, terminator);
+            print!("{}{}{}{}", RED, v, NC, terminator);
         }
 
         Value::Number(v) => {
-            print!("{}{}", v, terminator);
+            print!("{}{}{}{}", BOLD_WHITE, v, NC, terminator);
         }
 
         Value::String(v) => {
-            print!("\"{}\"{}", v, terminator);
+            print!("{}\"{}\"{}{}", GREEN, v, NC, terminator);
         },
 
         Value::Array(v) => {
@@ -54,7 +49,7 @@ pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
             println!("{{");
 
             for (key, value) in v {
-                print!("{}  \"{}\": ", &spaces, key);
+                print!("{}  {}\"{}\"{}: ", &spaces, BLUE, key, NC);
                 print_json(value, false, tab_cnt + 1);
                 println!();
             }
