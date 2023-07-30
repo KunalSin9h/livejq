@@ -2,6 +2,14 @@
 name = "livejq"
 version = "1.0.0"
 edition = "2021"
+authors = ["Kunal Singh <kunal@kunalsin9h.com>"]
+license = "MIT"
+description = "An alternative jq implementation in rust for continuous parsing without crashing on invalid JSON"
+readme = "README.md"
+homepage = "https://github.com/kunalsin9h/livejq"
+repository = "https://github.com/kunalsin9h/livejq"
+keywords = ["cli", "jq", "json", "parsing"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 serde_json = "1.0"
