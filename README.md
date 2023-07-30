@@ -28,3 +28,6 @@ or you can find `linux` binary in the [release page](https://github.com/KunalSin
 
 > Here `|` is for piping output of `my_program` into `livejq` as input.
 
+#### Example
+
+![example](https://tiddi.kunalsin9h.com/TT4WzX-)
