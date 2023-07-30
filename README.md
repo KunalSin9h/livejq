@@ -8,3 +8,22 @@ It works on one assumption that the JSON is a single sting like "{ "name": "Kuna
 #### Demo
 
 https://github.com/KunalSin9h/livejq/assets/82411321/1c9438ed-914a-4026-912a-e85d05d36c70
+
+#### Install
+
+Install using `cargo`
+```bash
+cargo install livejq
+```
+
+or you can find `linux` binary in the [release page](https://github.com/KunalSin9h/livejq/releases/tag/v1.0.0)
+
+
+#### Usage
+
+```bash
+./my_program | livejq
+```
+
+> Here `|` is for piping output of `my_program` into `livejq` as input.
+
