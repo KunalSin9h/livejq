@@ -1,1 +1,0 @@
-{"rustc":13806626623373421372,"features":"[]","target":17114873591667335244,"profile":3567329628440936607,"path":12855422335758724666,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"release/.fingerprint/itoa-74828d5e515fb2ec/dep-lib-itoa"}}],"rustflags":["-C","link-arg=--ld-path=/usr/bin/mold"],"metadata":851671291587502216,"config":5168918392836922832,"compile_kind":0}
