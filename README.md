@@ -1,9 +1,10 @@
 ## LiveJQ
 
-`livejq` is json parser like `jq` but is designed to work in continuous input without crashing on invalid JSON
+`livejq` is JSON parser like `jq` but is designed to work in continuous input without crashing on invalid JSON
 
-It works on one assumption that the JSON is a single sting like "{ "name": "Kunal Singh", "age": 21 }".
-> This is a limitation but will be fixed in future
+It works on one assumption that the JSON is a single string like `"{ "name": "Kunal Singh", "age": 21 }"`.
+
+> This is a limitation, but will be fixed in future
 
 #### Demo
 
