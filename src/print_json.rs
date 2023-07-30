@@ -11,9 +11,16 @@ use serde_json::Value;
     }
 */
 
-pub fn print_json(json_obj: Value, newline: bool) {
+pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
 
     let terminator = if newline {"\n"} else {""};
+
+    // Creating space to add before value
+    let mut spaces = String::new();
+
+    for _ in 0..tab_cnt {
+        spaces = spaces + "  ";
+    }
 
     match json_obj {
         Value::Null => return,
@@ -31,14 +38,15 @@ pub fn print_json(json_obj: Value, newline: bool) {
         },
 
         Value::Array(v) => {
-            print!("[ ");
+            println!("[");
 
             for elem in v {
-                print_json(elem, false);
-                print!(", ");
+                print!("{}  ", spaces);
+                print_json(elem, false, tab_cnt + 1);
+                println!(",");
             }
 
-            print!("]{}", terminator);
+            print!("{}]{}", spaces, terminator);
         }
 
         Value::Object(v) =>  {
@@ -46,12 +54,12 @@ pub fn print_json(json_obj: Value, newline: bool) {
             println!("{{");
 
             for (key, value) in v {
-                print!("  \"{}\": ", key);
-                print_json(value, false);
+                print!("{}  \"{}\": ", &spaces, key);
+                print_json(value, false, tab_cnt + 1);
                 println!();
             }
 
-            print!("}}{}", terminator);
+            print!("{}}}{}", spaces, terminator);
         }
     }
 }

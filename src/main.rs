@@ -13,7 +13,7 @@ fn main() {
             // Token is a valid JSON
             
             // recursively print the JSON values 
-            print_json(parsed_json, true);
+            print_json(parsed_json, true, 0);
         } else {
             println!("@");
             // Token is not a valid JSON 
