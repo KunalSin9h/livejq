@@ -15,7 +15,6 @@ fn main() {
             // recursively print the JSON values 
             print_json(parsed_json, true, 0);
         } else {
-            println!("@");
             // Token is not a valid JSON 
             
             // So just print it
