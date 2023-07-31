@@ -6,21 +6,21 @@ It works on one assumption that the JSON is a single string like `'{ "name": "Ku
 
 > This is a limitation, but will be fixed in future
 
-#### Demo
+### Demo
 
 https://github.com/KunalSin9h/livejq/assets/82411321/1c9438ed-914a-4026-912a-e85d05d36c70
 
-#### Install
+### Install
 
 Install using `cargo`
 ```bash
 cargo install livejq
 ```
 
-or you can find `linux` binary in the [release page](https://github.com/KunalSin9h/livejq/releases/tag/v1.0.1)
+#### or you can find `binary` in the [Release page](https://github.com/KunalSin9h/livejq/releases/latest)
 
 
-#### Usage
+### Usage
 
 ```bash
 ./my_program | livejq
