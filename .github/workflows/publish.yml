@@ -13,6 +13,6 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Cargo login
-        run: cargo login {{ secrets.CRATES_TOKEN }}
+        run: cargo login ${{ secrets.CRATES_TOKEN }}
       - name: Cargo publish
         run: cargo publish
