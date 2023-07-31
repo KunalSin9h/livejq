@@ -17,7 +17,7 @@ Install using `cargo`
 cargo install livejq
 ```
 
-#### or you can find `binary` in the [Release page](https://github.com/KunalSin9h/livejq/releases/latest)
+#### or you can find `binaries` in the [Release page](https://github.com/KunalSin9h/livejq/releases/latest)
 
 
 ### Usage
