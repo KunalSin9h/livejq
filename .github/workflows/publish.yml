@@ -1,7 +1,8 @@
-name: Cargo publish 
+name: Cargo publish
 
 on:
   push:
+    branches: [master]
     paths:
       - '**/Cargo.toml'
 jobs:
