@@ -1,3 +1,9 @@
+## [1.1.0] - 2023-08-01
+
+### Added
+
+- Support for termination of program when input stream is closed (program is finished) [EOF]
+
 ## [1.0.2] - 2023-07-31
 
 ### Added
@@ -16,6 +22,7 @@
 
 - Live parsing
 
-[1.0.2]: https://github.com/kunalsin9h/livejq/compare/v2.0.1...v1.0.2
+[1.1.0]: https://github.com/kunalsin9h/livejq/compare/v1.0.2...v1.1.0
+[1.0.2]: https://github.com/kunalsin9h/livejq/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/kunalsin9h/livejq/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/kunalsin9h/livejq/releases/tag/v1.0.0
