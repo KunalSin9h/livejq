@@ -33,10 +33,12 @@ pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
         },
 
         Value::Array(v) => {
-            println!("[");
 
             // number of times need to put `,` after the value
-            let mut sz = (v.len() - 1) as i32; 
+            let mut sz = v.len() as i32 - 1; 
+
+            // sz == -1 means the array is empty 
+            print!("[{}", if sz == -1 {""} else { "\n" });
 
             for elem in v {
                 print!("{}  ", spaces);
@@ -50,10 +52,12 @@ pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
 
         Value::Object(v) =>  {
 
-            println!("{{");
 
             // number of times need to put `,` after the value
-            let mut sz = (v.len() - 1) as i32; 
+            let mut sz = v.len() as i32 - 1; 
+
+            // sz == -1 means the map is empty 
+            print!("{{{}", if sz == -1 {""} else {"\n"});
 
             for (key, value) in v {
                 print!("{}  {}\"{}\"{}: ", &spaces, BLUE, key, NC);

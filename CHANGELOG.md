@@ -1,4 +1,8 @@
-## [1.1.0] - 2023-08-01
+## [1.1.1] - 2023-08-02
+
+### Fixed
+
+- Indentation on array and object's curly brackets when no items.
 
 ### Added
 
@@ -22,6 +26,7 @@
 
 - Live parsing
 
+[1.1.1]: https://github.com/kunalsin9h/livejq/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/kunalsin9h/livejq/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/kunalsin9h/livejq/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/kunalsin9h/livejq/compare/v1.0.0...v1.0.1
