@@ -4,6 +4,8 @@
 
 - Indentation on array and object's curly brackets when no items.
 
+## [1.1.0] - 2023-08-01
+
 ### Added
 
 - Support for termination of program when input stream is closed (program is finished) [EOF]
