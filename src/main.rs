@@ -5,7 +5,6 @@ use serde_json::Value;
 use std::io::{self, BufRead};
 
 fn main() {
-
     let stdin = io::stdin();
     let reader = stdin.lock();
 
@@ -14,10 +13,10 @@ fn main() {
             Ok(input) => {
                 if let Ok(parsed_json) = serde_json::from_str::<Value>(&input) {
                     // Token is a valid JSON
-                    // recursively print the JSON values 
+                    // recursively print the JSON values
                     print_json(parsed_json, true, 0);
                 } else {
-                    // Token is not a valid JSON 
+                    // Token is not a valid JSON
                     // So just print it
                     println!("{}", input);
                 }

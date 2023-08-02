@@ -7,8 +7,7 @@ const BOLD_WHITE: &str = "\x1b[1m";
 const NC: &str = "\x1b[0m";
 
 pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
-
-    let terminator = if newline {"\n"} else {""};
+    let terminator = if newline { "\n" } else { "" };
 
     // Creating space to add before value
     let mut spaces = String::new();
@@ -30,39 +29,36 @@ pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
 
         Value::String(v) => {
             print!("{}\"{}\"{}{}", GREEN, v, NC, terminator);
-        },
+        }
 
         Value::Array(v) => {
-
             // number of times need to put `,` after the value
-            let mut sz = v.len() as i32 - 1; 
+            let mut sz = v.len() as i32 - 1;
 
-            // sz == -1 means the array is empty 
-            print!("[{}", if sz == -1 {""} else { "\n" });
+            // sz == -1 means the array is empty
+            print!("[{}", if sz == -1 { "" } else { "\n" });
 
             for elem in v {
                 print!("{}  ", spaces);
                 print_json(elem, false, tab_cnt + 1);
-                println!("{}", if sz != 0 {","} else {""});
+                println!("{}", if sz != 0 { "," } else { "" });
                 sz -= 1;
             }
 
             print!("{}]{}", spaces, terminator);
         }
 
-        Value::Object(v) =>  {
-
-
+        Value::Object(v) => {
             // number of times need to put `,` after the value
-            let mut sz = v.len() as i32 - 1; 
+            let mut sz = v.len() as i32 - 1;
 
-            // sz == -1 means the map is empty 
-            print!("{{{}", if sz == -1 {""} else {"\n"});
+            // sz == -1 means the map is empty
+            print!("{{{}", if sz == -1 { "" } else { "\n" });
 
             for (key, value) in v {
                 print!("{}  {}\"{}\"{}: ", &spaces, BLUE, key, NC);
                 print_json(value, false, tab_cnt + 1);
-                println!("{}", if sz != 0 {","} else {""});
+                println!("{}", if sz != 0 { "," } else { "" });
                 sz -= 1;
             }
 
