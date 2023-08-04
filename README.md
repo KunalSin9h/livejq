@@ -12,6 +12,8 @@ It works on one assumption that the JSON is a single string like `'{ "name": "Ku
 
 ### Demo
 
+https://github.com/KunalSin9h/livejq/assets/82411321/71907858-5150-4efe-8c0f-58bb1c0dc591
+
 ### Install
 
 Install using `cargo`
