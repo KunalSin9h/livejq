@@ -31,5 +31,3 @@ cargo install livejq
 ```
 
 > Here `|` is for piping output of `my_program` into `livejq` as input.
-
-#### Example
