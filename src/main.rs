@@ -5,6 +5,7 @@ use serde_json::Value;
 use std::io::{self, BufRead};
 
 fn main() {
+    println!("")
     let stdin = io::stdin();
     let reader = stdin.lock();
 
