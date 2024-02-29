@@ -10,14 +10,10 @@ pub fn print_json(json_obj: Value, newline: bool, tab_cnt: usize) {
     let terminator = if newline { "\n" } else { "" };
 
     // Creating space to add before value
-    let mut spaces = String::new();
-
-    for _ in 0..tab_cnt {
-        spaces = spaces + "  ";
-    }
+    let spaces: String = std::iter::repeat(' ').take(tab_cnt).collect();
 
     match json_obj {
-        Value::Null => return,
+        Value::Null => (),
 
         Value::Bool(v) => {
             print!("{}{}{}{}", RED, v, NC, terminator);
