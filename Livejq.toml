@@ -1,0 +1,5 @@
+disallow = ["dont", "cant"]
+allow = [ "david" ]
+
+[memory]
+allow = ["memory", "stack", "segmentation"]
