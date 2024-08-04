@@ -1,5 +1,6 @@
 mod print_json;
 
+use clap::Parser;
 use print_json::print_json;
 use serde_json::Value;
 use std::collections::HashMap;
@@ -24,11 +25,24 @@ impl Default for Environment {
     }
 }
 
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    /// All the filter labels to apply, if not provided then default will be used.
+    #[arg(short, long, value_delimiter = ' ', num_args = 1..)]
+    filter: Vec<String>,
+}
+
 const CONFIG_FILES_NAME: [&str; 2] = ["livejq.toml", "Livejq.toml"];
 
 const CONFIG_PARSE_ERROR_MSG: &str = "Failed to parse config file, check and try again!";
 
 fn main() -> ExitCode {
+    let mut filters = Args::parse().filter;
+    if filters.is_empty() {
+        filters.push(String::from("default"));
+    }
+
     let mut config_data: Option<String> = None;
     for file in CONFIG_FILES_NAME {
         if let Ok(content) = std::fs::read_to_string(file) {
@@ -130,11 +144,29 @@ fn main() -> ExitCode {
         }
     }
 
-    for (k, v) in envs {
+    for (k, v) in &envs {
         if !v.allow.is_empty() && !v.disallow.is_empty() {
             eprintln!("Error: For every filter label, use either allow or disallow, not both.");
             eprintln!("       Both allow and disallow is used for key: {k}");
             return ExitCode::FAILURE;
+        }
+    }
+
+    let mut allow_list = Vec::<&String>::new();
+    let mut disallow_list = Vec::<&String>::new();
+
+    for filter in filters {
+        if !envs.contains_key(&filter) {
+            eprintln!("Error: No label with name : {filter} found in config file.");
+            return ExitCode::FAILURE;
+        }
+
+        let env = envs.get(&filter).unwrap();
+        for allow in &env.allow {
+            allow_list.push(allow);
+        }
+        for disallow in &env.disallow {
+            disallow_list.push(disallow);
         }
     }
 
@@ -150,9 +182,24 @@ fn main() -> ExitCode {
                         .as_object()
                         .expect("Failed to parse json, try again!");
 
+                    let mut show = allow_list.is_empty() && disallow_list.is_empty();
+
+                    for (k, _) in json {
+                        if disallow_list.contains(&k) {
+                            show = false;
+                            break;
+                        }
+                        if allow_list.contains(&k) {
+                            show = true;
+                            break;
+                        }
+                    }
+
                     // Token is a valid JSON
                     // recursively print the JSON values
-                    print_json(parsed_json, true, 0);
+                    if show {
+                        print_json(parsed_json, true, 0);
+                    }
                 } else {
                     // Token is not a valid JSON
                     // So just print it

@@ -1,5 +1,0 @@
-[default]
-allow = ["abd", "egfh"]
-
-[failed]
-disallow = ["successfull"]
