@@ -182,7 +182,7 @@ fn main() -> ExitCode {
                         .as_object()
                         .expect("Failed to parse json, try again!");
 
-                    let mut show = allow_list.is_empty() && disallow_list.is_empty();
+                    let mut show = allow_list.is_empty();
 
                     for (k, _) in json {
                         if disallow_list.contains(&k) {

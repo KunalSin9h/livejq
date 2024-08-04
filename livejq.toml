@@ -1,0 +1,7 @@
+allow = ["name"] # default
+
+[network-fail]  # -f network-fail
+allow = ["failed"]
+
+[memory-info] # -f memory-info
+allow = ["memory"]

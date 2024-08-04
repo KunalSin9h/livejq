@@ -1,0 +1,3 @@
+{ "name": "Kunal Singh", "age": 22, "work": "build", "github": "kunalsin9h", "cool": "asf"}
+{ "memory": "24 GB", "brand": "Dell", "compiler": "g++"}
+{ "failed": true, "error": "Netowrk connection timeout", "source": "src/api/post.ts"}

@@ -1,14 +1,14 @@
 ## LiveJQ
 
-`livejq` is JSON parser like `jq` but is designed to work in continuous input without crashing on invalid JSON
+`livejq` is JSON parser like `jq` but is designed to work in continuous input without crashing on invalid JSON. With json filtering.
+
+It uses `livejq.toml` file to specify [filter rules](#filter).
 
 #### User Case
 
-1. When you have a program that is printing logs which may have other formats in between like text along with JSON, and you want to parse JSON for better readability. You can use `livejq` to parse JSON without crashing on other formats.
+When you have a program that is printing logs which may have other formats in between like text along with JSON, and you want to parse JSON for better readability. You can use `livejq` to parse JSON without crashing on other formats.
 
-It works on one assumption that the JSON is a single string like `'{ "name": "Kunal Singh", "age": 21 }'`.
-
-> This is a limitation, but will be fixed in future
+Or when you want to apply `filters` when paring json.
 
 ### Demo
 
@@ -27,7 +27,39 @@ cargo install livejq
 ### Usage
 
 ```bash
-./my_program | livejq
+./your_program | livejq
 ```
+
+### Filter
+
+To apply filtering, you need to create `livejq.toml` file in the project root.
+
+It contains `labels`. _labels_ are filter labels which you can apply with `-f` / `--filter` flag.
+
+Example config file:
+
+```bash
+# livejq.toml
+
+allow = ["name"] # default
+
+[network-fail]  # -f network-fail
+allow = ["failed"]
+
+[memory-info] # -f memory-info
+allow = ["memory"]
+```
+
+Then run the application as 
+```bash
+./your_program | livejq -f network-fail
+
+# you can apply multiple filters
+./your_program | livejq -f network-fail memory-info
+```
+
+when not `label` is created, `default` is used. For each label, you can only give allow or disallow, not both.
+
+When not `flag` is used while running the program, the `default` flag is used.
 
 > Here `|` is for piping output of `my_program` into `livejq` as input.
