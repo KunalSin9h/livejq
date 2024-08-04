@@ -9,7 +9,7 @@ use std::process::ExitCode;
 const ALLOW: &str = "allow";
 const DISALLOW: &str = "disallow";
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Environment {
     allow: Vec<String>,
     disallow: Vec<String>,
@@ -37,7 +37,11 @@ fn main() -> ExitCode {
         }
     }
 
-    let mut envs = HashMap::<&str, Environment>::new();
+    let mut envs = HashMap::<String, Environment>::new();
+
+    if !envs.contains_key("default") {
+        envs.insert(String::from("default"), Environment::default());
+    }
 
     if let Some(config) = config_data {
         let parsed = config.parse::<toml::Table>().expect(CONFIG_PARSE_ERROR_MSG);
@@ -48,17 +52,19 @@ fn main() -> ExitCode {
                 // since it does not have group
                 // i.e [default] or [something_else]
 
-                let mut env = Environment::default();
+                let env = envs.get_mut("default").unwrap();
 
                 match key.as_str() {
+                    // key is consumed
                     ALLOW => {
                         for json_key_name in arr {
-                            env.allow.push(json_key_name.to_string())
+                            env.allow.push(sanitize_string(&json_key_name.to_string()));
                         }
                     }
                     DISALLOW => {
                         for json_key_name in arr {
-                            env.disallow.push(json_key_name.to_string());
+                            env.disallow
+                                .push(sanitize_string(&json_key_name.to_string()));
                         }
                     }
                     _ => {
@@ -66,36 +72,33 @@ fn main() -> ExitCode {
                         return ExitCode::FAILURE;
                     }
                 }
-
-                envs.insert("default", env);
             } else if let toml::Value::String(s) = &value {
-                let mut env = Environment::default();
+                let env = envs.get_mut("default").unwrap();
+
                 match key.as_str() {
                     ALLOW => {
-                        env.allow.push(s.clone());
+                        env.allow.push(sanitize_string(s));
                     }
                     DISALLOW => {
-                        env.disallow.push(s.clone());
+                        env.disallow.push(sanitize_string(s));
                     }
                     _ => {
                         eprintln!("{CONFIG_PARSE_ERROR_MSG}");
                         return ExitCode::FAILURE;
                     }
                 }
-
-                envs.insert("default", env);
             } else if let toml::Value::Table(t) = &value {
                 let mut env = Environment::default();
 
                 if t.contains_key(ALLOW) {
                     if let toml::Value::Array(arr) = t.get(ALLOW).expect(CONFIG_PARSE_ERROR_MSG) {
                         for json_key_name in arr {
-                            env.allow.push(json_key_name.to_string());
+                            env.allow.push(sanitize_string(&json_key_name.to_string()));
                         }
                     } else if let toml::Value::String(key_name) =
                         t.get(ALLOW).expect(CONFIG_PARSE_ERROR_MSG)
                     {
-                        env.allow.push(key_name.clone());
+                        env.allow.push(sanitize_string(key_name));
                     } else {
                         eprintln!("{CONFIG_PARSE_ERROR_MSG}");
                         return ExitCode::FAILURE;
@@ -106,27 +109,26 @@ fn main() -> ExitCode {
                     if let toml::Value::Array(arr) = t.get(DISALLOW).expect(CONFIG_PARSE_ERROR_MSG)
                     {
                         for json_key_name in arr {
-                            env.disallow.push(json_key_name.to_string());
+                            env.disallow
+                                .push(sanitize_string(&json_key_name.to_string()));
                         }
                     } else if let toml::Value::String(key_name) =
                         t.get(DISALLOW).expect(CONFIG_PARSE_ERROR_MSG)
                     {
-                        env.disallow.push(key_name.clone());
+                        env.disallow.push(sanitize_string(key_name));
                     } else {
                         eprintln!("{CONFIG_PARSE_ERROR_MSG}");
                         return ExitCode::FAILURE;
                     }
                 }
 
-                envs.insert("hello", env);
+                envs.insert(key, env);
             } else {
                 eprintln!("{CONFIG_PARSE_ERROR_MSG}");
                 return ExitCode::FAILURE;
             }
         }
     }
-
-    dbg!(envs);
 
     println!();
     let stdin = io::stdin();
@@ -156,4 +158,8 @@ fn main() -> ExitCode {
     }
 
     return ExitCode::SUCCESS;
+}
+
+fn sanitize_string(s: &String) -> String {
+    s.trim_matches(|c| c == '"' || c == '\\').to_string()
 }

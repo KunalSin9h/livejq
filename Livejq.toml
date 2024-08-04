@@ -1,5 +1,6 @@
-disallow = ["dont", "cant"]
-allow = [ "david" ]
+allow = ["abd", "egfh"]
+disallow = ["kunal"]
 
-[memory]
-allow = ["memory", "stack", "segmentation"]
+[failed]
+allow = ["failed"]
+disallow = ["successfull"]
