@@ -130,6 +130,14 @@ fn main() -> ExitCode {
         }
     }
 
+    for (k, v) in envs {
+        if !v.allow.is_empty() && !v.disallow.is_empty() {
+            eprintln!("Error: For every filter label, use either allow or disallow, not both.");
+            eprintln!("       Both allow and disallow is used for key: {k}");
+            return ExitCode::FAILURE;
+        }
+    }
+
     println!();
     let stdin = io::stdin();
     let reader = stdin.lock();

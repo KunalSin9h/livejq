@@ -1,6 +1,5 @@
+[default]
 allow = ["abd", "egfh"]
-disallow = ["kunal"]
 
 [failed]
-allow = ["failed"]
 disallow = ["successfull"]
