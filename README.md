@@ -38,24 +38,20 @@ It contains `labels`. _labels_ are filter labels which you can apply with `-f` /
 
 Example config file:
 
-```bash
-# livejq.toml
+```toml
+#livejq.toml
 
 allow = ["name"] # default
 
-[network-fail]  # -f network-fail
+[network-fail] # -f network-fail
 allow = ["failed"]
 
 [memory-info] # -f memory-info
 allow = ["memory"]
-```
 
-Then run the application as 
-```bash
-./your_program | livejq -f network-fail
+[console] # -f console
+disallow = ["failed", "memory", "name"]
 
-# you can apply multiple filters
-./your_program | livejq -f network-fail memory-info
 ```
 
 when not `label` is created, `default` is used. For each label, you can only give allow or disallow, not both.

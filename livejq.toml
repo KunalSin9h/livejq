@@ -1,7 +1,10 @@
 allow = ["name"] # default
 
-[network-fail]  # -f network-fail
+[network-fail] # -f network-fail
 allow = ["failed"]
 
 [memory-info] # -f memory-info
 allow = ["memory"]
+
+[console]
+disallow = ["failed", "memory", "name"]
