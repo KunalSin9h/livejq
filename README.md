@@ -36,26 +36,40 @@ To apply filtering, you need to create `livejq.toml` file in the project root.
 
 It contains `labels`. _labels_ are filter labels which you can apply with `-f` / `--filter` flag.
 
-Example config file:
+#### Example config file:
+
+> when not `label` is created, `default` is used. For each label, you can only give allow or disallow, not both.
 
 ```toml
 #livejq.toml
 
 allow = ["name"] # default
 
-[network-fail] # -f network-fail
-allow = ["failed"]
+[network] # -f network
+allow = ["net-failed"]
 
-[memory-info] # -f memory-info
-allow = ["memory"]
+[memory] # -f memory
+allow = ["memory-info"]
 
-[console] # -f console
-disallow = ["failed", "memory", "name"]
-
+[not-console] # -f not-console
+disallow = ["console"]
 ```
 
-when not `label` is created, `default` is used. For each label, you can only give allow or disallow, not both.
+> for seeing the schema format, check `schema.toml` file in this repository.
 
-When not `flag` is used while running the program, the `default` flag is used.
+#### Usage:
+
+```bash
+# If no flag is given, it will use default 
+# i.e allow = ["name"]
+# it will only allow json who have "name" key
+node main.js | livejq
+
+# you can combine different labels together
+node main.js | livejq -f network memory
+
+# or using example_data.txt from this repository
+cat example_data.txt | livejq --filter not-console
+```
 
 > Here `|` is for piping output of `my_program` into `livejq` as input.

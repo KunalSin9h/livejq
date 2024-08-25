@@ -1,0 +1,18 @@
+# livejq.toml configuration file schema
+
+[default] # option label
+# either allow or disallow, not both
+allow = ["", ""]
+disallow = ["", ""]
+
+[my-label] # required lable name, since it's not default
+# either allow or disallow, not both
+allow = ["", ""]
+disallow = ["", ""]
+
+[my-label-2] # required lable name, since it's not default
+# either allow or disallow, not both
+allow = ["", ""]
+disallow = ["", ""]
+
+
